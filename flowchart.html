@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <!-- Downloaded as per http://knsv.github.io/mermaid/#installation -->
+  <!-- Stored in the same directory as html file                     -->
+  <link rel="stylesheet" href="mermaid.css">
+
+  <!-- Optional to use fontawesome                                   -->
+  <!-- Downloaded as per http://fontawesome.io/get-started/          -->
+  <!-- Stored in the same directory as html file                     -->
+  <script src="https://use.fontawesome.com/7065416dc9.js"></script>
+
+</head>
+<body>
+
+  <!-- Include mermaid on your web page:                             -->
+  <script src="mermaid.min.js"></script>
+  <script>mermaid.initialize({startOnLoad:true});</script>
+
+  <h1>Week End</h1>
+  <div class="mermaid">
+graph TD
+    ende(fa:fa-calendar End of week)
+    adminEntry(fa:fa-database List all teams selected <br/>fa:fa-pencil Tick all winners)
+    removeNoEntry(fa:fa-remove Remove all users who:<br/>&nbsp;fa:fa-database Who did not submit or <br/>&nbsp;fa:fa-database Not selected winners)
+    ende-->adminEntry
+    adminEntry-->removeNoEntry
+    removeNoEntry-->countRemain
+
+    countRemain{fa:fa-database Is there one winner ?}
+    countRemain -- There is only 1 -->winner
+    winner(fa:fa-trophy We have a winner)
+    reset(fa:fa-database Reset to new game)
+    adminEntryNewGame(fa:fa-pencil New Game: <br/>&nbsp;Set new closing date and glib message)
+    winner-->reset
+    reset-->adminEntryNewGame
+
+    countRemain -- More than 1 remain -->adminEntryNewWeek
+    adminEntryNewWeek(fa:fa-pencil New Week: <br/>&nbsp;Set new closing date and glib message)
+    adminEntryNewWeek-->begin
+    begin{Beginning of week}
+    reminderIn(fa:fa-info-circle Due date and info)
+    reminderOut(fa:fa-info-circle Info)
+    begin -- User still in --> reminderIn
+    begin -- User out --> reminderOut
+  </div>
+
+  <h1>Reminders</h1>
+  <div class="mermaid">
+graph TD
+    preDeadline(fa:fa-calendar 24 Hours prior to deadline)
+    preDeadline -- Users with no selection received --> reminderFinal
+    reminderFinal(fa:fa-info-circle Remind due date)
+  </div>
+
+  <h1>Joining</h1>
+  <div class="mermaid">
+graph TD
+    registration{Join};
+    register(fa:fa-user-circle Assign Username)
+    welcome(fa:fa-life-ring Welcome pack<br/>)
+    status(fa:fa-info-circle Status currently<br/>fa:fa-calendar Next entry point)
+    registration --> register
+    register --> welcome
+    welcome --> status
+    requestUN(fa:fa-info-circle Reply with help message)
+    registration -- <small>Missing <br/> Username <br/> or </br> Already</br>registered</small>--- requestUN
+    requestUN --> registration
+  </div>
+
+</body>
+</html>
+
